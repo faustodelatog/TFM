@@ -1,4 +1,4 @@
-tx_date;sku;units_sold;stock;is_open;is_holiday;is_prom
+date;sku;units_sold;stock;is_open;is_holiday;is_prom
 20190102;1;28;;1;0;1
 20190102;2;28;;1;0;1
 20190102;3;44;;1;0;1
