@@ -2,6 +2,7 @@ import RawTransactionsGenerator as rtg
 import PreviousValuesGenerator as pvg
 import TransactionsFiller as tf
 import FeatureExtractor as fe
+import PredictionModelsExecutor as pme
 
 class Main:
     data_path = None
@@ -18,6 +19,7 @@ class Main:
         self.transactions_with_empty_values_filled = f'{self.data_path}/output/_3_transactions_with_empty_values_filled.csv'
         self.transactions_with_empty_values_filled_and_past_values = f'{self.data_path}/output/_4_transactions_with_empty_values_filled_and_past_values.csv'
         self.transactions_with_features = f'{self.data_path}/output/_5_transactions_with_features.csv'
+        self.transactions_with_predictions = f'{self.data_path}/output/_6_transactions_with_predictions.csv'
 
     def generate_raw_transactions(self):
         raw_transactions_generator = rtg.RawTransactionsCreator(self.data_path)
@@ -49,6 +51,11 @@ class Main:
         feature_extractor.add_sold_out()
         feature_extractor.format_sku()
         feature_extractor.save_transactions(self.transactions_with_features)
+    
+    def predict(self):
+        prediction_models_executor = pme.PredictionModelExecutor(self.transactions_with_features)
+        prediction_models_executor.execute_models(self.transactions_with_predictions)
+
 
 DATA_PATH = '../data'
 main = Main(DATA_PATH)
@@ -56,4 +63,5 @@ main = Main(DATA_PATH)
 #main.generate_previous_values()
 #main.fill_values()
 #main.generate_previous_values_for_non_empty_values()
-main.extract_features()
+#main.extract_features()
+main.predict()
