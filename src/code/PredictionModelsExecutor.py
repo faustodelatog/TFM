@@ -118,7 +118,7 @@ class PredictionModelExecutor:
         self.__plot_series([data_with_predictions.units_sold, training_data_with_predictions.lstm_pred, test_data_with_predictions.lstm_pred], ['Units Sold', 'LSTM Pred Training', 'LSTM Pred Test'], ['lightblue', 'pink', 'black'])
         self.__plot_series([data_with_predictions.units_sold, training_data_with_predictions.units_sold_last_week, test_data_with_predictions.units_sold_last_week], ['Units Sold', 'Last Week Training', 'Last Week Pred Test'], ['lightblue', 'green', 'black'])
         self.__plot_series([data_with_predictions.units_sold, training_data_with_predictions.units_sold_last_4_weeks, test_data_with_predictions.units_sold_last_4_weeks], ['Units Sold', 'Last 4 Weeks Training', 'Last 4 Weeks Pred Test'], ['lightblue', 'red', 'black'])
-        self.__plot_series([data_with_predictions.units_sold, training_data_with_predictions.units_sold_last_4_weeks, test_data_with_predictions.units_sold_last_4_weeks], ['Units Sold', 'Last 8 Weeks Training', 'Last 8 Weeks Pred Test'], ['lightblue', 'brown', 'black'])
+        self.__plot_series([data_with_predictions.units_sold, training_data_with_predictions.units_sold_last_8_weeks, test_data_with_predictions.units_sold_last_8_weeks], ['Units Sold', 'Last 8 Weeks Training', 'Last 8 Weeks Pred Test'], ['lightblue', 'brown', 'black'])
         self.__plot_series([data_with_predictions.units_sold, training_data_with_predictions.prophet_pred, test_data_with_predictions.prophet_pred], ['Units Sold', 'Prophet Training', 'Prophet Pred Test'], ['lightblue', 'yellow', 'black'])
 
         data_test = data_with_predictions[(data_with_predictions.training == 0) & (data_with_predictions.lstm_pred.notna())]
@@ -137,7 +137,7 @@ class PredictionModelExecutor:
         print (f'Prophet pred error {prophet_pred_error}')
 
     def __save_transactions(self, transactions, output_file):
-        transactions.reset_index()
+        transactions = transactions.reset_index()
         transactions.to_csv(output_file, index = False, sep=';')
         print(f'{transactions.shape[0]} transacciones guardadas en: {output_file}')
 
